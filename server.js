@@ -43,6 +43,20 @@ app.use(errorHandlerMiddeware)
 
 const PORT = process.env.PORT || 5500
 
+// authenticate socket connection
+// import { UnAuthenticatedError } from './errors/index.js'
+// import authSocket from './middleware/authSocket.js'
+
+// io.use((socket, next) => {
+//   if (authSocket(socket.handshake.headers['Authorization'])) {
+//     next()
+//     console.log('Authenticated')
+//   } else {
+//     next(new UnAuthenticatedError('Authentication Invalid'))
+//     console.log('Not Authenticated')
+//   }
+// })
+
 io.of('/api/v1/socket').on('connection', (socket) => {
   console.log('socket.io: User connected: ', socket.id)
 
