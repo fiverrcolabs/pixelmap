@@ -2,7 +2,7 @@ import xmpp from 'simple-xmpp'
 import jwt from 'jsonwebtoken'
 
 import { StatusCodes } from 'http-status-codes'
-import { BadRequestError, UnAuthenticatedError } from '../errors/index.js'
+import { BadRequestError } from '../errors/index.js'
 
 const createJWT = (user) => {
   return jwt.sign({ userId: user }, process.env.JWT_SECRET, {
@@ -44,7 +44,7 @@ const login = async (req, res) => {
     if (count > 1) return
 
     res.status(StatusCodes.OK).json({
-      error: 'Invalid Credentials',
+      msg: 'Invalid Credentials',
     })
 
     xmpp.disconnect()

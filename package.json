@@ -27,7 +27,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.1",
     "morgan": "^1.10.0",
-    "simple-xmpp": "^2.3.1"
+    "simple-xmpp": "^2.3.1",
+    "socket.io": "^4.5.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
