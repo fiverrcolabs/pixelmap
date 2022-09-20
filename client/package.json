@@ -3,17 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@kokarn/react-zoom-pan-pinch": "^2.1.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
     "bootstrap": "^5.2.1",
     "msw": "^0.38.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.0",
     "react-scripts": "^5.0.1",
-    "react-zoom-pan-pinch": "^2.1.3",
     "socket.io-client": "^4.5.2",
+    "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
   "overrides": {
@@ -45,5 +47,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:4001"
 }

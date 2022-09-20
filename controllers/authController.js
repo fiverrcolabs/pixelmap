@@ -43,7 +43,7 @@ const login = async (req, res) => {
 
     if (count > 1) return
 
-    res.status(StatusCodes.OK).json({
+    res.status(StatusCodes.UNAUTHORIZED).json({
       msg: 'Invalid Credentials',
     })
 
