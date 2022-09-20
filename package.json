@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server --ignore client/"
+    "server": "nodemon server --ignore client/",
+    "client": "cd client && npm start",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -31,6 +33,7 @@
     "socket.io": "^4.5.2"
   },
   "devDependencies": {
+    "concurrently": "^7.4.0",
     "nodemon": "^2.0.20"
   }
 }
