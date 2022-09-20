@@ -10,21 +10,32 @@
 .bcontainer{
   margin: auto;
   /* margin-top: 100px; */
-  height: 500px;
-  width: 500px;
+  height: 800px;
+  width: 800px;
 }
 
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto auto auto auto ;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto
+  auto auto auto auto auto auto auto auto auto auto
+  auto auto auto auto auto auto auto auto auto auto
+  auto auto auto auto auto auto auto auto auto auto
+  auto auto auto auto auto auto auto auto auto auto
+  auto auto auto auto auto auto auto auto auto auto
+  auto auto auto auto auto auto auto auto auto auto
+  auto auto auto auto auto auto auto auto auto auto
+  auto auto auto auto auto auto auto auto auto auto
+  auto auto auto auto auto auto auto auto auto auto ;
   /* background-color: #2196F3; */
-  padding: 10px;
+  padding: 1px;
+  height: 800px;
+  width: 800px;
 }
 .grid-item {
   background-color: rgb(255, 255, 255);
-  border: 1px solid rgba(211, 211, 211, 0.8);
+  border: 0.5px solid rgba(211, 211, 211, 0.8);
   /* padding: 20px; */
-  font-size: 20px;
+  font-size: 2px;
   text-align: center;
 }
 
