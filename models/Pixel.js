@@ -5,14 +5,19 @@ const PixelSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  col: {
-    type: Number,
-    required: true,
-  },
+  // col: {
+  //   type: Number,
+  //   required: true,
+  // },
   state: {
     type: Boolean,
     required: true,
     default: false,
+  },
+  color: {
+    type: String,
+    required: true,
+    default: '',
   },
   email: {
     type: String,

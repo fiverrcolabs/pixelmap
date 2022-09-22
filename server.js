@@ -36,7 +36,8 @@ app.use(express.json())
 // })
 
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/pixelmap', authenticateUser, pixelmapRouter)
+// app.use('/api/v1/pixelmap', authenticateUser, pixelmapRouter)
+app.use('/api/v1/pixelmap', pixelmapRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddeware)
@@ -81,7 +82,7 @@ const start = async () => {
           case 'insert':
             const pixel = {
               row: change.fullDocument.row,
-              col: change.fullDocument.col,
+              color: change.fullDocument.color,
               state: change.fullDocument.state,
             }
             io.of('/api/v1/socket').emit('newPixel', pixel)
@@ -91,6 +92,13 @@ const start = async () => {
             break
         }
       })
+
+      // pixelmapChangeStream.on("send_message", (data) => {
+      //   // socket.to(data.room).emit("receive_message", data);
+      //   socket.emit("receive_message", data);
+      //   console.log("server soket data",data)
+    
+      // });
     })
     server.listen(PORT, () => {
       console.log(`Server is listening on port ${PORT}...`)

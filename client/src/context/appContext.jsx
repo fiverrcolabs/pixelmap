@@ -13,12 +13,84 @@ const initialState = {
   alertType: '',
   user: user ? JSON.parse(user) : null,
   token: token,
+
 }
 
 const AppContext = React.createContext()
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
+
+
+    // ----------------board-------------
+    const getBoard= async () => {
+        // dispatch({ type: 'GETBOARD_BEGIN' })
+    
+        try {
+          const { data } = await axios.get('/api/v1/pixelmap/getPixels')
+          // const { user, token } = data
+          // dispatch({
+          //   type: 'GETBOARD_SUCCESS',
+          //   payload: {
+          //     data,
+          //   },
+          // })
+
+         return data.pixels
+        
+        } catch (error) {
+          // dispatch({
+          //   type: 'GETBOARD_ERROR',
+          //   payload: {
+          //     msg: error.response.data.msg,
+          //   },
+          // })
+          console.log(error)
+        }
+    
+        clearAlert()
+
+    }
+
+    const savePixel= async (pixel) => {
+      // dispatch({ type: 'GETBOARD_BEGIN' })
+        // const pixel={row:12,
+        //         state:true,
+        //         color:"black"}
+      try {
+        const { data } = await axios.post('/api/v1/pixelmap/addPixel',pixel)
+        // const { user, token } = data
+        // dispatch({
+        //   type: 'GETBOARD_SUCCESS',
+        //   payload: {
+        //     data,
+        //   },
+        // })
+
+        console.log(data)
+      
+      } catch (error) {
+        // dispatch({
+        //   type: 'GETBOARD_ERROR',
+        //   payload: {
+        //     msg: error.response.data.msg,
+        //   },
+        // })
+        console.log(error)
+      }
+  
+      clearAlert()
+
+  }
+
+
+
+
+
+
+
+    // ----------------login-------------
+
 
   const displayAlert = () => {
     dispatch({ type: 'SHOW_ALERT' })
@@ -76,6 +148,9 @@ const AppProvider = ({ children }) => {
     removeUserToLocalStorage()
   }
 
+
+
+
   return (
     <AppContext.Provider
       value={{
@@ -83,6 +158,8 @@ const AppProvider = ({ children }) => {
         displayAlert,
         loginUser,
         logoutUser,
+        getBoard,
+        savePixel
       }}
     >
       {children}
