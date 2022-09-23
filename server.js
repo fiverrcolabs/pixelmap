@@ -19,6 +19,7 @@ import connectDB from './db/connect.js'
 // routers
 import authRouter from './routes/authRoute.js'
 import pixelmapRouter from './routes/pixelmapRoute.js'
+import userRouter from './routes/userRoute.js'
 
 // middleware
 import notFoundMiddleware from './middleware/not-found.js'
@@ -38,6 +39,7 @@ app.use(express.json())
 app.use('/api/v1/auth', authRouter)
 // app.use('/api/v1/pixelmap', authenticateUser, pixelmapRouter)
 app.use('/api/v1/pixelmap', pixelmapRouter)
+app.use('/api/v1/user', userRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddeware)
@@ -110,24 +112,17 @@ const start = async () => {
 
 start()
 
-// import util from 'util'
+import CronJob from 'node-cron'
+import User from './models/User.js'
 
-// xmpp.on('online', (data) => {
-//   console.log('hey you are onlie!')
-//   console.log(`data is ${data}`)
-//   console.log(
-//     util.inspect(data, { showHidden: false, depth: null, colors: true })
-//   )
-//   xmpp.disconnect()
-// })
+CronJob.schedule('0 0 */23 * * *', async () => {
+  const users = await User.find()
 
-// xmpp.on('error', (error) => {
-//   console.log(`error is ${error}`)
-//   xmpp.disconnect()
-// })
+    for (const user of users) {
+        user.point+=1
+        await user.save()
+    }
 
-// xmpp.connect({
-//   jid: 'test2000@wiuwiu.de',
-//   password: 'test2000',
-//   host: 'wiuwiu.de',
-// })
+	const d = new Date();
+	console.log('Log: ', d);
+})
