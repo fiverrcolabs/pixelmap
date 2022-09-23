@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 
 import { StatusCodes } from 'http-status-codes'
 import { BadRequestError } from '../errors/index.js'
+import User from '../models/User.js'
 
 const createJWT = (user) => {
   return jwt.sign({ userId: user }, process.env.JWT_SECRET, {
@@ -18,11 +19,17 @@ const login = async (req, res) => {
     throw new BadRequestError('please provide all values')
   }
 
-  xmpp.on('online', (data) => {
+  xmpp.on('online', async (data) => {
     count += 1
     // console.log(count)
 
     if (count > 1) return
+
+    const userExist = await User.findOne({ email })
+
+    if (!userExist) {
+      await User.create({ email })
+    }
 
     const token = createJWT(data.jid.user)
     res.status(StatusCodes.OK).json({
