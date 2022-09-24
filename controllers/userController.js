@@ -22,7 +22,7 @@ const deductPoint = async (req, res) => {
         throw new BadRequestError('Invalid User')
     }
 
-    console.log(user.point)
+    // console.log(user.point)
     if (user.point > 0) {
         user.point-=1
         await user.save()
@@ -32,7 +32,7 @@ const deductPoint = async (req, res) => {
 }
 
 const getPoint = async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     const { email } = req.body
     const user = await User.findOne({ email })
 
