@@ -8,7 +8,7 @@ import { useAppContext } from '../context/appContext'
 import io from "socket.io-client";
 const socket = io("http://localhost:4001/api/v1/socket", { transports: ['websocket'] });
 const user = localStorage.getItem('user')
-
+const token = localStorage.getItem('token')
 
 function Board() {
 
@@ -42,7 +42,7 @@ function Board() {
         })
       }
       // You can await here
-      const bd = await getBoard();
+      const bd = await getBoard(token);
       const availablePixels =await getAvailablePixels(user);
       setCredit(parseInt(availablePixels))
      
@@ -126,7 +126,7 @@ function Board() {
         color: color
       }
 
-      savePixel(pixel)
+      savePixel(pixel,token)
       //    console.log(board[parseInt(currentClick)-1].color ,color)
       //    board[parseInt(currentClick)-1].color=String(color)
       // console.log(board)

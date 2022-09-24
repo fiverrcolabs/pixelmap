@@ -37,8 +37,8 @@ app.use(express.json())
 // })
 
 app.use('/api/v1/auth', authRouter)
-// app.use('/api/v1/pixelmap', authenticateUser, pixelmapRouter)
-app.use('/api/v1/pixelmap', pixelmapRouter)
+app.use('/api/v1/pixelmap', authenticateUser, pixelmapRouter)
+// app.use('/api/v1/pixelmap', pixelmapRouter)
 app.use('/api/v1/user', userRouter)
 
 app.use(notFoundMiddleware)

@@ -22,71 +22,82 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
 
-    // ----------------board-------------
-    const getBoard= async () => {
-        // dispatch({ type: 'GETBOARD_BEGIN' })
-    
-        try {
-          const { data } = await axios.get('/api/v1/pixelmap/getPixels')
-       
-         return data.pixels
-        
-        } catch (error) {
-    
-          console.log(error)
+  // ----------------board-------------
+  const getBoard = async (token) => {
+    // dispatch({ type: 'GETBOARD_BEGIN' })
+
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-    
-        clearAlert()
-
-    }
-
-    const getAvailablePixels= async (currentUser) => {
-        // dispatch({ type: 'GETBOARD_BEGIN' })
-        try {
-          // console.log("from context",currentUser)
-          const { data } = await axios.post('/api/v1/user/getPoint',JSON.parse(currentUser))
-        //  return data.pixels
-        // console.log(data.res.point)
-        return data.res.point
-        
-        } catch (error) {
-          console.log(error)
-        }
-    
-        clearAlert()
-
-    }
-
-    const saveAvailablePixels= async (currentUser) => {
-        // dispatch({ type: 'GETBOARD_BEGIN' })
-        try {
-          const { data } = await axios.post('/api/v1/user/deductPoint',JSON.parse(currentUser))
-        // console.log(data)
-        
-        } catch (error) {
-          console.log(error)
-        }
-    
-        clearAlert()
-
-    }
-
-
-
-    const savePixel= async (pixel) => {
-     
-      try {
-        const { data } = await axios.post('/api/v1/pixelmap/addPixel',pixel)
-     
-
-        console.log(data)
-      
-      } catch (error) {
-     
-        console.log(error)
       }
-  
-      clearAlert()
+      const { data } = await axios.get('/api/v1/pixelmap/getPixels', config)
+
+      return data.pixels
+
+    } catch (error) {
+
+      console.log(error)
+    }
+
+    clearAlert()
+
+  }
+
+  const getAvailablePixels = async (currentUser) => {
+    // dispatch({ type: 'GETBOARD_BEGIN' })
+    try {
+      // console.log("from context",currentUser)
+      const { data } = await axios.post('/api/v1/user/getPoint', JSON.parse(currentUser))
+      //  return data.pixels
+      // console.log(data.res.point)
+      return data.res.point
+
+    } catch (error) {
+      console.log(error)
+    }
+
+    clearAlert()
+
+  }
+
+  const saveAvailablePixels = async (currentUser) => {
+    // dispatch({ type: 'GETBOARD_BEGIN' })
+    try {
+      const { data } = await axios.post('/api/v1/user/deductPoint', JSON.parse(currentUser))
+      // console.log(data)
+
+    } catch (error) {
+      console.log(error)
+    }
+
+    clearAlert()
+
+  }
+
+
+
+  const savePixel = async (pixel,token) => {
+
+    try {
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }}
+
+      const { data } = await axios.post('/api/v1/pixelmap/addPixel', pixel,config)
+
+
+      console.log(data)
+
+    } catch (error) {
+
+      console.log(error)
+    }
+
+    clearAlert()
 
   }
 
@@ -96,7 +107,7 @@ const AppProvider = ({ children }) => {
 
 
 
-    // ----------------login-------------
+  // ----------------login-------------
 
 
   const displayAlert = () => {
