@@ -60,7 +60,7 @@
 
 * {
   font-family: 'Montserrat', sans-serif;
-  background-color: #f2f4f8;
+  
   
   margin: 0;
   box-sizing: border-box;
@@ -71,6 +71,7 @@
 }
 
 .full-page {
+  background-color: #f2f4f8;
   min-height: 100vh;
 }
 
@@ -123,7 +124,7 @@
   width: 100%;
   padding: 0.375rem 0.75rem;
   border-radius: var(--borderRadius);
-  background: var(--backgroundColor);
+  background: white;
   border: 1px solid var(--grey-200);
 }
 
@@ -134,6 +135,7 @@
 }
 .form-row {
   margin-bottom: 1rem;
+  background-color: white;
 }
 
 .form-textarea {

@@ -8,7 +8,7 @@ const addPixel = async (req, res) => {
     throw new BadRequestError('please provide all values')
   }
   //   req.body.createdBy = req.user.userId
-  req.body.email = 'test2000@wiuwiu.de'
+  // req.body.email = 'test2000@wiuwiu.de'
   // console.log(req.body)
   const pixel = await Pixel.create(req.body)
 

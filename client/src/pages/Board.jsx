@@ -7,13 +7,13 @@ import {
 import { useAppContext } from '../context/appContext'
 import io from "socket.io-client";
 const socket = io("http://localhost:4001/api/v1/socket", { transports: ['websocket'] });
-const user = localStorage.getItem('user')
-const token = localStorage.getItem('token')
+// const user = useAppContext('user')
+// const token = localStorage.getItem('token')
 
 function Board() {
 
-  const { getBoard, savePixel,getAvailablePixels ,saveAvailablePixels } = useAppContext()
-
+  const { getBoard, savePixel, getAvailablePixels, saveAvailablePixels } = useAppContext()
+  const { user, token } = useAppContext()
 
   const { logoutUser } = useAppContext()
 
@@ -42,10 +42,11 @@ function Board() {
         })
       }
       // You can await here
+      // console.log("from board", user,token)
       const bd = await getBoard(token);
-      const availablePixels =await getAvailablePixels(user);
+      const availablePixels = await getAvailablePixels(user, token);
       setCredit(parseInt(availablePixels))
-     
+
       // console.log("Board is: ", bd)
       // console.log(board[parseInt(bd[0].row)].color)
       bd.forEach((item) => {
@@ -54,29 +55,17 @@ function Board() {
         tempBoard[parseInt(item.row) - 1].color = item.color;
       })
 
-      // tempBoard[parseInt(bd[0].row)].color='#FF0000'
+
       setBoard(tempBoard)
       setLoading(false)
-      // ...
+
     }
 
     fetchData(board);
 
-  }, []);
+  }, [user, token]);
 
 
-
-  // useEffect(()=>{
-
-  //   async function fetchData(user) {
-
-    
-  //   const availablePixels =await getAvailablePixels(user);
-  //   setCredit(parseInt(availablePixels))
-  //   }
-
-  //   fetchData(user)
-  // },[])
 
 
   useEffect(() => {
@@ -91,8 +80,6 @@ function Board() {
         tempBoard[parseInt(item.row) - 1].id = item.row
         tempBoard[parseInt(item.row) - 1].state = item.state
         tempBoard[parseInt(item.row) - 1].color = item.color
-
-
 
         // console.log("test1", prevState)
         return tempBoard
@@ -116,22 +103,20 @@ function Board() {
     }
   }
   const onSubmit = () => {
-    console.log('submit')
+    // console.log('submit')
 
     if (currentClick) {
-    
+
       const pixel = {
         row: parseInt(currentClick),
         state: true,
-        color: color
+        color: color,
+        email: user.email
       }
 
-      savePixel(pixel,token)
-      //    console.log(board[parseInt(currentClick)-1].color ,color)
-      //    board[parseInt(currentClick)-1].color=String(color)
-      // console.log(board)
+      savePixel(pixel, token)
 
-      saveAvailablePixels(user)
+      saveAvailablePixels(user, token)
       setCredit(credit - 1)
 
     }
@@ -176,16 +161,8 @@ function Board() {
 
         </div>
         <div className='bcontainer'>
-          {/* <div className='row d-flex justify-content-center  p-3 '>
-          <input
-            type='button'
-            className='btn btn-danger'
-            value='Logout'
-            onClick={logoutUser}
-          />
-        </div> */}
 
-          {/* <div style={{height: 510, width: 510}}> */}
+
 
           <TransformWrapper
             defaultScale={1}
@@ -194,7 +171,7 @@ function Board() {
             defaultPositionY={1}
           >
             <TransformComponent>
-              {/* <div className='bcontainer' > */}
+
 
               <div className='grid-container'>
                 {board && board.map((num) => (
@@ -216,7 +193,7 @@ function Board() {
                 ))}
               </div>
 
-              {/* </div> */}
+
             </TransformComponent>
           </TransformWrapper>
 
@@ -230,11 +207,7 @@ function Board() {
                 onChange={onChange}
                 className='colorpicker'
               />
-              {/* <div class="input-group">
-              <span class="input-group-text">Color Picker</span>
-              <input type="color" class="form-control" id="colorpicker" value="#0000ff"/>
-              
-          </div> */}
+
             </div>
 
             <div className='col  d-flex justify-content-center  p-1 border'>
@@ -258,7 +231,7 @@ function Board() {
                 value={credit}
                 disabled
               />
-              {/* <p  value={credit}>{credit}</p> */}
+
             </div>
           </div>
         </div>

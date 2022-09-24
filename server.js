@@ -39,26 +39,14 @@ app.use(express.json())
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/pixelmap', authenticateUser, pixelmapRouter)
 // app.use('/api/v1/pixelmap', pixelmapRouter)
-app.use('/api/v1/user', userRouter)
+app.use('/api/v1/user',authenticateUser, userRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddeware)
 
 const PORT = process.env.PORT || 5500
 
-// authenticate socket connection
-// import { UnAuthenticatedError } from './errors/index.js'
-// import authSocket from './middleware/authSocket.js'
 
-// io.use((socket, next) => {
-//   if (authSocket(socket.handshake.headers['Authorization'])) {
-//     next()
-//     console.log('Authenticated')
-//   } else {
-//     next(new UnAuthenticatedError('Authentication Invalid'))
-//     console.log('Not Authenticated')
-//   }
-// })
 
 io.of('/api/v1/socket').on('connection', (socket) => {
   console.log('socket.io: User connected: ', socket.id)
@@ -95,12 +83,7 @@ const start = async () => {
         }
       })
 
-      // pixelmapChangeStream.on("send_message", (data) => {
-      //   // socket.to(data.room).emit("receive_message", data);
-      //   socket.emit("receive_message", data);
-      //   console.log("server soket data",data)
     
-      // });
     })
     server.listen(PORT, () => {
       console.log(`Server is listening on port ${PORT}...`)

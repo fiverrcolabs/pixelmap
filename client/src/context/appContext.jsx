@@ -45,11 +45,16 @@ const AppProvider = ({ children }) => {
 
   }
 
-  const getAvailablePixels = async (currentUser) => {
+  const getAvailablePixels = async (currentUser,token) => {
     // dispatch({ type: 'GETBOARD_BEGIN' })
+    const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
     try {
       // console.log("from context",currentUser)
-      const { data } = await axios.post('/api/v1/user/getPoint', JSON.parse(currentUser))
+      const { data } = await axios.post('/api/v1/user/getPoint', currentUser,config)
       //  return data.pixels
       // console.log(data.res.point)
       return data.res.point
@@ -62,10 +67,15 @@ const AppProvider = ({ children }) => {
 
   }
 
-  const saveAvailablePixels = async (currentUser) => {
+  const saveAvailablePixels = async (currentUser,token) => {
     // dispatch({ type: 'GETBOARD_BEGIN' })
+    const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
     try {
-      const { data } = await axios.post('/api/v1/user/deductPoint', JSON.parse(currentUser))
+      const { data } = await axios.post('/api/v1/user/deductPoint', currentUser,config)
       // console.log(data)
 
     } catch (error) {
@@ -78,16 +88,17 @@ const AppProvider = ({ children }) => {
 
 
 
-  const savePixel = async (pixel,token) => {
+  const savePixel = async (pixel, token) => {
 
     try {
 
       const config = {
         headers: {
           Authorization: `Bearer ${token}`
-        }}
+        }
+      }
 
-      const { data } = await axios.post('/api/v1/pixelmap/addPixel', pixel,config)
+      const { data } = await axios.post('/api/v1/pixelmap/addPixel', pixel, config)
 
 
       console.log(data)
@@ -131,7 +142,17 @@ const AppProvider = ({ children }) => {
     localStorage.removeItem('token')
   }
 
+  const delay = (delayInms) => {
+    return new Promise(resolve => setTimeout(resolve, delayInms));
+  }
+
   const loginUser = async (currentUser) => {
+
+    // console.log('a');
+    // console.log('waiting...')
+    // let delayres = await delay(5000);
+    // console.log('b');
+
     dispatch({ type: 'LOGIN_USER_BEGIN' })
 
     try {
@@ -149,6 +170,8 @@ const AppProvider = ({ children }) => {
         user,
         token,
       })
+
+     
     } catch (error) {
       dispatch({
         type: 'LOGIN_USER_ERROR',
