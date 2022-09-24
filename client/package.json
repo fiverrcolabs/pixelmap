@@ -19,7 +19,7 @@
     "web-vitals": "^2.1.4"
   },
   "overrides": {
-    "react-zoom-pan-pinch": {
+    "@kokarn/react-zoom-pan-pinch": {
       "react": "$react",
       "react-dom": "$react-dom"
     }
