@@ -71,7 +71,7 @@ function Board() {
   useEffect(() => {
 
     socket.on("newPixel", async (item) => {
-      console.log("from socket", item)
+      // console.log("from socket", item)
 
       setBoard((prevState) => {
 
@@ -94,7 +94,7 @@ function Board() {
 
 
   const onclick = (e) => {
-    console.log(e.target.id)
+    // console.log(e.target.id)
     // e.target.classList.add("clicked")
     if (!board[e.target.id - 1].state) {
       setCurrentClick(e.target.id)
