@@ -31,7 +31,7 @@ const reducer = (state, action) => {
       user: action.payload.user,
       showAlert: true,
       alertType: 'success',
-      alertText: 'Login Successfull! Redirecting...',
+      alertText: 'Login Successfull! Redirecting....',
     }
   }
 

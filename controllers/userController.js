@@ -32,6 +32,7 @@ const deductPoint = async (req, res) => {
 }
 
 const getPoint = async (req, res) => {
+    console.log(req.body)
     const { email } = req.body
     const user = await User.findOne({ email })
 

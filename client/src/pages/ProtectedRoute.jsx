@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom'
+import { Navigate,Outlet } from 'react-router-dom'
 import { useAppContext } from '../context/appContext'
 
 const ProtectedRoute = ({ children }) => {
@@ -7,7 +7,9 @@ const ProtectedRoute = ({ children }) => {
   if (!user) {
     return <Navigate to='/login' />
   }
-  return children
+ 
+  // return children
+  return  <Outlet />
 }
 
 export default ProtectedRoute
