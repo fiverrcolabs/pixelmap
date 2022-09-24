@@ -1,0 +1,8 @@
+PORT=4001
+
+DB_NAME=(optional)
+DB_PASSWORD=(optional)
+MONGO_URL=your mongodb url (required)
+
+JWT_SECRET=PeShVmYq3t6w9z$C&F)J@NcQfTjWnZr4
+JWT_LIFETIME=1d
