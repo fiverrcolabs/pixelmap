@@ -101,7 +101,7 @@ const AppProvider = ({ children }) => {
       const { data } = await axios.post('/api/v1/pixelmap/addPixel', pixel, config)
 
 
-      console.log(data)
+      // console.log(data)
 
     } catch (error) {
 

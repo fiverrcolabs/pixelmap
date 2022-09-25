@@ -152,6 +152,22 @@
 }
 
 /* ------------- */
+.cp{
+
+  z-index: 10;
+  border-radius: 50px;
+  position: absolute;
+  top: 460px;
+  left: 30%;
+  width: 100px;
+  height: 100px;
+  background-color: #0a6c74;
+}
+@media only screen and (max-width: 768px){
+  .cp{
+    left: 20%;
+  }
+}
 
 .bcontainer {
   margin: auto;
