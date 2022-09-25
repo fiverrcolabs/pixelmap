@@ -11,6 +11,7 @@
     "bootstrap": "^5.2.1",
     "msw": "^0.38.0",
     "react": "^18.2.0",
+    "react-colorful": "^5.6.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.0",
     "react-scripts": "^5.0.1",
@@ -19,7 +20,7 @@
     "web-vitals": "^2.1.4"
   },
   "overrides": {
-    "react-zoom-pan-pinch": {
+    "@kokarn/react-zoom-pan-pinch": {
       "react": "$react",
       "react-dom": "$react-dom"
     }

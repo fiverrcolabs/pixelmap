@@ -5,8 +5,11 @@ import {
   TransformComponent,
 } from '@kokarn/react-zoom-pan-pinch'
 import { useAppContext } from '../context/appContext'
+import { HexColorPicker } from "react-colorful";
 import io from "socket.io-client";
+
 const socket = io("http://localhost:4001/api/v1/socket", { transports: ['websocket'] });
+
 // const user = useAppContext('user')
 // const token = localStorage.getItem('token')
 
@@ -26,6 +29,9 @@ function Board() {
   const [credit, setCredit] = useState(0)
   const [loading, setLoading] = useState(true)
   const [board, setBoard] = useState([]);
+  const [act, setAct] = useState(false);
+
+
   // console.log(board)
 
 
@@ -122,10 +128,10 @@ function Board() {
     }
   }
 
-  const onChange = (e) => {
-    console.log(e.target.value)
-    setColor(e.target.value)
-  }
+  // const onChange = (e) => {
+  //   console.log(e.target.value)
+  //   setColor(e.target.value)
+  // }
 
   const pathMatchRoute = (num) => {
     if (!num.state) {
@@ -197,16 +203,22 @@ function Board() {
             </TransformComponent>
           </TransformWrapper>
 
+          <div  style={{ display: (!act)?'none':'' }} className='cp'><HexColorPicker color={color} onChange={setColor} /></div>
+
+
           <div className='row  '>
             <div className='col  d-flex justify-content-center  p-1 border'>
               <label htmlFor='colorpicker'>Color Picker:</label>
               <input
-                type='color'
-                id='colorpicker'
-                value={color}
-                onChange={onChange}
-                className='colorpicker'
+                type='button'
+                id='colorclick'
+                className='btn btn-outline-primary'
+                value="  "
+                style={{ backgroundColor: color }}
+                onClick={()=>{setAct(!act)}}
+                
               />
+
 
             </div>
 
