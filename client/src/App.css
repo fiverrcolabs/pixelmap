@@ -157,7 +157,7 @@
   z-index: 10;
   border-radius: 50px;
   position: absolute;
-  top: 460px;
+  top: 435px;
   left: 30%;
   width: 100px;
   height: 100px;
@@ -173,7 +173,7 @@
   margin: auto;
   /* margin-top: 100px; */
   text-align: center;
-  height: 620px;
+  height: 600px;
   width: 600px;
 }
 
@@ -190,7 +190,11 @@
     auto auto auto auto auto auto auto auto auto auto
     auto auto auto auto auto auto auto auto auto auto
     auto auto auto auto auto auto auto auto auto auto
-    auto auto auto auto auto auto auto auto auto auto;
+    auto auto auto auto auto auto auto auto auto auto
+
+
+
+   ;
   /* background-color: #2196F3; */
   padding: 1px;
   height: 600px;
@@ -203,7 +207,9 @@
   background-color: rgb(255, 255, 255);
   border: 0.1px solid rgba(255, 255, 255, 0);
   /* padding: 20px; */
-  font-size: 2px;
+  /* width:2px ;
+  height:2px ; */
+  /* font-size: 2px; */
   text-align: center;
 }
 

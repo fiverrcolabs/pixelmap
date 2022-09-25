@@ -203,20 +203,26 @@ function Board() {
             </TransformComponent>
           </TransformWrapper>
 
-          <div  style={{ display: (!act)?'none':'' }} className='cp'><HexColorPicker color={color} onChange={setColor} /></div>
+          <div style={{ display: (!act) ? 'none' : '' }} className='cp'>
+          <input className="form-control " type="text" name="name" value={color} onChange={(e)=>setColor(e.target.value)} />
+            <HexColorPicker color={color} onChange={setColor} />
+            
+
+          </div>
 
 
           <div className='row  '>
             <div className='col  d-flex justify-content-center  p-1 border'>
               <label htmlFor='colorpicker'>Color Picker:</label>
+              
               <input
                 type='button'
                 id='colorclick'
                 className='btn btn-outline-primary'
                 value="  "
                 style={{ backgroundColor: color }}
-                onClick={()=>{setAct(!act)}}
-                
+                onClick={() => { setAct(!act) }}
+
               />
 
 
