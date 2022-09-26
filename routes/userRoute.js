@@ -1,7 +1,7 @@
 import express from 'express'
 const router = express.Router()
 
-import { deductPoint, getPoint } from '../controllers/userController.js'
+import {  getPoint } from '../controllers/userController.js'
 
 // import rateLimiter from 'express-rate-limit'
 
@@ -13,7 +13,7 @@ import { deductPoint, getPoint } from '../controllers/userController.js'
 
 // router.route('/login').post(apiLimiter, login)
 // router.route('/addPointAll').get(addPointToAll)
-router.route('/deductPoint').post(deductPoint)
+// router.route('/deductPoint').post(deductPoint)
 router.route('/getPoint').post(getPoint)
 
 export default router
