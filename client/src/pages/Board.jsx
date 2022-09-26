@@ -15,7 +15,7 @@ const socket = io("http://localhost:4001/api/v1/socket", { transports: ['websock
 
 function Board() {
 
-  const { getBoard, savePixel, getAvailablePixels, saveAvailablePixels } = useAppContext()
+  const { getBoard, savePixel, getAvailablePixels } = useAppContext()
   const { user, token } = useAppContext()
 
   const { logoutUser } = useAppContext()
@@ -122,7 +122,6 @@ function Board() {
 
       savePixel(pixel, token)
 
-      saveAvailablePixels(user, token)
       setCredit(credit - 1)
 
     }

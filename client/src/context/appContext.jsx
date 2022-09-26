@@ -67,24 +67,24 @@ const AppProvider = ({ children }) => {
 
   }
 
-  const saveAvailablePixels = async (currentUser,token) => {
-    // dispatch({ type: 'GETBOARD_BEGIN' })
-    const config = {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    try {
-      const { data } = await axios.post('/api/v1/user/deductPoint', currentUser,config)
-      // console.log(data)
+  // const saveAvailablePixels = async (currentUser,token) => {
+  //   // dispatch({ type: 'GETBOARD_BEGIN' })
+  //   const config = {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`
+  //       }
+  //     }
+  //   try {
+  //     const { data } = await axios.post('/api/v1/user/deductPoint', currentUser,config)
+  //     // console.log(data)
 
-    } catch (error) {
-      console.log(error)
-    }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
 
-    clearAlert()
+  //   clearAlert()
 
-  }
+  // }
 
 
 
@@ -202,7 +202,7 @@ const AppProvider = ({ children }) => {
         getBoard,
         savePixel,
         getAvailablePixels,
-        saveAvailablePixels
+       
       }}
     >
       {children}
