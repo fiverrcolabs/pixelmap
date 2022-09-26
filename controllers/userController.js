@@ -14,22 +14,22 @@ import { BadRequestError, UnAuthenticatedError } from '../errors/index.js'
     // res.status(StatusCodes.OK).json({ res: "Successfully Executed..." })
 // }
 
-const deductPoint = async (req, res) => {
-    const { email } = req.body
-    const user = await User.findOne({ email })
+// const deductPoint = async (req, res) => {
+//     const { email } = req.body
+//     const user = await User.findOne({ email })
 
-    if (!user) {
-        throw new BadRequestError('Invalid User')
-    }
+//     if (!user) {
+//         throw new BadRequestError('Invalid User')
+//     }
 
-    // console.log(user.point)
-    if (user.point > 0) {
-        user.point-=1
-        await user.save()
-    }
+//     // console.log(user.point)
+//     if (user.point > 0) {
+//         user.point-=1
+//         await user.save()
+//     }
 
-    res.status(StatusCodes.OK).json({ res: user })
-}
+//     res.status(StatusCodes.OK).json({ res: user })
+// }
 
 const getPoint = async (req, res) => {
     // console.log(req.body)
@@ -43,4 +43,4 @@ const getPoint = async (req, res) => {
     res.status(StatusCodes.OK).json({ res: user })
 }
 
-export { deductPoint, getPoint }
+export {  getPoint }
