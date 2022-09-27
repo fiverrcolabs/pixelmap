@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
   point: {
     type: Number,
     required: true,
-    default: 3,
+    default: 10,
   },
 })
 

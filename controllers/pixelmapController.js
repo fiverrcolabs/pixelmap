@@ -23,12 +23,12 @@ const addPixel = async (req, res) => {
     throw new BadRequestError('No Available pixels for user')
   }
 
+  
+  const pixel = await Pixel.create(req.body)
   user.point -= 1
   await user.save()
 
 
-
-  const pixel = await Pixel.create(req.body)
 
   res.status(StatusCodes.CREATED).json({ pixel })
 }
