@@ -48,7 +48,7 @@ function Board() {
         })
       }
       // You can await here
-      // console.log("from board", user,token)
+      console.log("from board", user,token)
       const bd = await getBoard(token);
       const availablePixels = await getAvailablePixels(user, token);
       setCredit(parseInt(availablePixels))
@@ -77,7 +77,7 @@ function Board() {
   useEffect(() => {
 
     socket.on("newPixel", async (item) => {
-      // console.log("from socket", item)
+      console.log("from socket", item)
 
       setBoard((prevState) => {
 
@@ -90,6 +90,9 @@ function Board() {
         // console.log("test1", prevState)
         return tempBoard
       });
+
+      const availablePixels = await getAvailablePixels(user, token);
+      setCredit(parseInt(availablePixels))
 
     });
 
@@ -105,13 +108,14 @@ function Board() {
     if (!board[e.target.id - 1].state) {
       setCurrentClick(e.target.id)
     } else {
+      setCurrentClick(0)
       console.log('occupied')
     }
   }
   const onSubmit = () => {
     // console.log('submit')
 
-    if (currentClick) {
+    if (currentClick && credit) {
 
       const pixel = {
         row: parseInt(currentClick),
@@ -122,7 +126,8 @@ function Board() {
 
       savePixel(pixel, token)
 
-      setCredit(credit - 1)
+      // setCredit(credit - 1)
+      setCurrentClick(0)
 
     }
   }
@@ -232,7 +237,7 @@ function Board() {
                 type='subbit'
                 className='btn btn-primary'
                 onClick={onSubmit}
-                disabled={!credit}
+                disabled={!credit || currentClick===0}
               >
                 {' '}
                 confirm
