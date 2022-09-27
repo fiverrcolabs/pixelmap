@@ -4,6 +4,7 @@ const PixelSchema = new mongoose.Schema({
   row: {
     type: Number,
     required: true,
+    unique: true
   },
   // col: {
   //   type: Number,
