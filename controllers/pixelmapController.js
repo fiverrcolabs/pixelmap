@@ -23,14 +23,33 @@ const addPixel = async (req, res) => {
     throw new BadRequestError('No Available pixels for user')
   }
 
-  
-  const pixel = await Pixel.create(req.body)
-  user.point -= 1
-  await user.save()
+  const pixelexist = await Pixel.findOne({ row })
 
+  if (pixelexist) {
+    if (pixelexist.color === color) {
+      throw new BadRequestError('cant coverwrite same color pixel')
+    }
+    console.log(pixelexist)
+    pixelexist.row=row;
+    pixelexist.color = color;
+    pixelexist.email = email;
+    await pixelexist.save();
+    user.point -= 1
+    await user.save()
 
+    return res.status(StatusCodes.CREATED).json({ pixelexist })
+  } else {
+    const pixel = await Pixel.create(req.body)
+    user.point -= 1
+    await user.save()
 
-  res.status(StatusCodes.CREATED).json({ pixel })
+    return res.status(StatusCodes.CREATED).json({ pixel })
+  }
+
+  // user.point -= 1
+  // await user.save()
+
+  // res.status(StatusCodes.CREATED).json({ pixel })
 }
 
 const getPixels = async (req, res) => {

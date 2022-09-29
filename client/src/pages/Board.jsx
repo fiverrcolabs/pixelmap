@@ -105,12 +105,14 @@ function Board() {
   const onclick = (e) => {
     // console.log(e.target.id)
     // e.target.classList.add("clicked")
-    if (!board[e.target.id - 1].state) {
-      setCurrentClick(e.target.id)
-    } else {
-      setCurrentClick(0)
-      console.log('occupied')
-    }
+    // if (!board[e.target.id - 1].state) {
+    //   setCurrentClick(e.target.id)
+    // } else {
+    //   setCurrentClick(0)
+    //   console.log('occupied')
+    // }
+
+    setCurrentClick(e.target.id)
   }
   const onSubmit = () => {
     // console.log('submit')
@@ -138,13 +140,13 @@ function Board() {
   // }
 
   const pathMatchRoute = (num) => {
-    if (!num.state) {
+    // if (!num.state) {
       if (parseInt(num.id) === parseInt(currentClick)) {
         return true
       } else {
         return false
       }
-    }
+    // }
   }
 
   if (loading) {
@@ -237,7 +239,7 @@ function Board() {
                 type='subbit'
                 className='btn btn-primary'
                 onClick={onSubmit}
-                disabled={!credit || currentClick===0}
+                disabled={!credit || currentClick===0 || color==board[currentClick-1].color}
               >
                 {' '}
                 confirm
