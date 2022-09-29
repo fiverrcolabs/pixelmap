@@ -2,6 +2,7 @@ import http from 'http'
 import express from 'express'
 import { Server } from 'socket.io'
 import mongoose from 'mongoose'
+import Pixel from './models/Pixel.js'
 
 const app = express()
 const server = http.createServer(app)
@@ -26,7 +27,6 @@ import notFoundMiddleware from './middleware/not-found.js'
 import errorHandlerMiddeware from './middleware/error-handler.js'
 import authenticateUser from './middleware/auth.js'
 
-
 if (process.env.NODE_ENV !== 'Production') {
   app.use(morgan('dev'))
 }
@@ -47,8 +47,6 @@ app.use(errorHandlerMiddeware)
 
 const PORT = process.env.PORT || 5500
 
-
-
 io.of('/api/v1/socket').on('connection', (socket) => {
   console.log('socket.io: User connected: ', socket.id)
 
@@ -67,11 +65,8 @@ const start = async () => {
 
       console.log('Setting change streams')
       const pixelmapChangeStream = connection.collection('pixels').watch()
-      const pix=connection.collection('pixels')
-      
 
-
-      pixelmapChangeStream.on('change', async(change) => {
+      pixelmapChangeStream.on('change', async (change) => {
         switch (change.operationType) {
           case 'insert':
             var pixel = {
@@ -84,13 +79,10 @@ const start = async () => {
 
           case 'update':
             console.log(change.documentKey._id.toString())
-            const pixelexist = await pix.findOne({'_id':change.documentKey._id.toString()})
+            const pixelexist = await Pixel.findOne({
+              _id: change.documentKey._id.toString(),
+            })
             console.log(pixelexist)
-            // var pixel = {
-            //   row: change.fullDocument.row,
-            //   color: change.fullDocument.color,
-            //   state: change.fullDocument.state,
-            // }
             io.of('/api/v1/socket').emit('newPixel', pixelexist)
             break
 
@@ -98,8 +90,6 @@ const start = async () => {
             break
         }
       })
-
-
     })
     server.listen(PORT, () => {
       console.log(`Server is listening on port ${PORT}...`)
@@ -122,6 +112,6 @@ CronJob.schedule('0 0 */23 * * *', async () => {
     await user.save()
   }
 
-  const d = new Date();
-  console.log('Log: ', d);
+  const d = new Date()
+  console.log('Log: ', d)
 })
