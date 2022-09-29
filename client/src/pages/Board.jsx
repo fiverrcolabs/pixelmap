@@ -30,7 +30,7 @@ function Board() {
   const [loading, setLoading] = useState(true)
   const [board, setBoard] = useState([]);
   const [act, setAct] = useState(false);
-
+  const sizeofboard=100;
 
   // console.log(board)
 
@@ -40,7 +40,7 @@ function Board() {
   useEffect(() => {
     async function fetchData(board) {
       let tempBoard = []
-      for (let i = 1; i < 10001; i++) {
+      for (let i = 1; i <( sizeofboard*sizeofboard)+1; i++) {
         tempBoard.push({
           id: i,
           state: false,
