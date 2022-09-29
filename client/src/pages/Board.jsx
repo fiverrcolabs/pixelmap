@@ -30,7 +30,7 @@ function Board() {
   const [loading, setLoading] = useState(true)
   const [board, setBoard] = useState([]);
   const [act, setAct] = useState(false);
-
+  const sizeofboard=process.env.REACT_APP_SIZE;
 
   // console.log(board)
 
@@ -40,7 +40,7 @@ function Board() {
   useEffect(() => {
     async function fetchData(board) {
       let tempBoard = []
-      for (let i = 1; i < 10001; i++) {
+      for (let i = 1; i <( sizeofboard*sizeofboard)+1; i++) {
         tempBoard.push({
           id: i,
           state: false,
@@ -105,12 +105,14 @@ function Board() {
   const onclick = (e) => {
     // console.log(e.target.id)
     // e.target.classList.add("clicked")
-    if (!board[e.target.id - 1].state) {
-      setCurrentClick(e.target.id)
-    } else {
-      setCurrentClick(0)
-      console.log('occupied')
-    }
+    // if (!board[e.target.id - 1].state) {
+    //   setCurrentClick(e.target.id)
+    // } else {
+    //   setCurrentClick(0)
+    //   console.log('occupied')
+    // }
+
+    setCurrentClick(e.target.id)
   }
   const onSubmit = () => {
     // console.log('submit')
@@ -138,14 +140,29 @@ function Board() {
   // }
 
   const pathMatchRoute = (num) => {
-    if (!num.state) {
+    // if (!num.state) {
       if (parseInt(num.id) === parseInt(currentClick)) {
         return true
       } else {
         return false
       }
-    }
+    // }
   }
+
+  const bcr = (num) => {
+    // if (!num.state) {
+      let tb = ""
+      for (let i = 1; i <( sizeofboard)+1; i++) {
+        tb=tb+" auto"
+      }
+
+      return tb
+
+
+  }
+
+
+
 
   if (loading) {
     return <div className='bcontainer' > <h1 >Loading.....</h1> </div>
@@ -183,7 +200,9 @@ function Board() {
             <TransformComponent>
 
 
-              <div className='grid-container'>
+              <div className='grid-container'  style={{
+                      gridTemplateColumns: 'auto '.repeat(sizeofboard),
+                    }} >
                 {board && board.map((num) => (
                   <div
                     className={
@@ -237,7 +256,7 @@ function Board() {
                 type='subbit'
                 className='btn btn-primary'
                 onClick={onSubmit}
-                disabled={!credit || currentClick===0}
+                disabled={!credit || currentClick===0 || color==board[currentClick-1].color}
               >
                 {' '}
                 confirm
