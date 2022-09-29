@@ -30,7 +30,7 @@ function Board() {
   const [loading, setLoading] = useState(true)
   const [board, setBoard] = useState([]);
   const [act, setAct] = useState(false);
-  const sizeofboard=100;
+  const sizeofboard=process.env.REACT_APP_SIZE;
 
   // console.log(board)
 
@@ -149,6 +149,21 @@ function Board() {
     // }
   }
 
+  const bcr = (num) => {
+    // if (!num.state) {
+      let tb = ""
+      for (let i = 1; i <( sizeofboard)+1; i++) {
+        tb=tb+" auto"
+      }
+
+      return tb
+
+
+  }
+
+
+
+
   if (loading) {
     return <div className='bcontainer' > <h1 >Loading.....</h1> </div>
   }
@@ -185,7 +200,9 @@ function Board() {
             <TransformComponent>
 
 
-              <div className='grid-container'>
+              <div className='grid-container'  style={{
+                      gridTemplateColumns: 'auto '.repeat(sizeofboard),
+                    }} >
                 {board && board.map((num) => (
                   <div
                     className={

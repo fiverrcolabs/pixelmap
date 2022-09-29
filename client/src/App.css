@@ -180,7 +180,8 @@
 .grid-container {
   display: grid;
   
-  grid-template-columns:
+  /* grid-template-columns: */
+    /* auto auto auto auto auto auto auto auto auto auto
     auto auto auto auto auto auto auto auto auto auto
     auto auto auto auto auto auto auto auto auto auto
     auto auto auto auto auto auto auto auto auto auto
@@ -189,8 +190,7 @@
     auto auto auto auto auto auto auto auto auto auto
     auto auto auto auto auto auto auto auto auto auto
     auto auto auto auto auto auto auto auto auto auto
-    auto auto auto auto auto auto auto auto auto auto
-    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto */
 
     /* auto auto auto auto auto auto auto auto auto auto
     auto auto auto auto auto auto auto auto auto auto
