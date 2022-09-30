@@ -7,6 +7,7 @@ import {
 import { useAppContext } from '../context/appContext'
 import { HexColorPicker } from "react-colorful";
 import io from "socket.io-client";
+// import './pages.css'
 
 const socket = io("http://localhost:4001/api/v1/socket", { transports: ['websocket'] });
 
@@ -24,13 +25,13 @@ function Board() {
 
 
 
-  const [currentClick, setCurrentClick] = useState(0)
+  const [currentClick, setCurrentClick] = useState("")
   const [color, setColor] = useState('#1f80ff')
   const [credit, setCredit] = useState(0)
   const [loading, setLoading] = useState(true)
   const [board, setBoard] = useState([]);
   const [act, setAct] = useState(false);
-  const sizeofboard=process.env.REACT_APP_SIZE;
+  const sizeofboard = process.env.REACT_APP_SIZE;
 
   // console.log(board)
 
@@ -40,27 +41,50 @@ function Board() {
   useEffect(() => {
     async function fetchData(board) {
       let tempBoard = []
-      for (let i = 1; i <( sizeofboard*sizeofboard)+1; i++) {
-        tempBoard.push({
-          id: i,
-          state: false,
-          color: '#fffff',
-        })
+      // for (let i = 1; i < (sizeofboard * sizeofboard) + 1; i++) {
+      //   tempBoard.push({
+      //     id: i,
+      //     state: false,
+      //     color: '#fffff',
+      //   })
+      // }
+
+      for (let i = 1; i < parseInt(sizeofboard)+1; i++) {
+        for (let j = 1; j < parseInt(sizeofboard)+1; j++) {
+          tempBoard.push({
+            id: [i, j],
+            state: false,
+            color: '#fffff',
+          })
+
+        }
+
       }
+
+
       // You can await here
-      console.log("from board", user,token)
+      console.log("from board", user, token)
       const bd = await getBoard(token);
       const availablePixels = await getAvailablePixels(user, token);
       setCredit(parseInt(availablePixels))
 
       // console.log("Board is: ", bd)
       // console.log(board[parseInt(bd[0].row)].color)
-      bd.forEach((item) => {
-        tempBoard[parseInt(item.row) - 1].id = item.row;
-        tempBoard[parseInt(item.row) - 1].state = item.state;
-        tempBoard[parseInt(item.row) - 1].color = item.color;
+      bd.forEach((dbitem) => {
+        // tempBoard[parseInt(item.row) - 1].id = item.row;
+        // tempBoard[parseInt(item.row) - 1].state = item.state;
+        // tempBoard[parseInt(item.row) - 1].color = item.color;
+        tempBoard.forEach((item) => {
+          
+          if(item.id.toString()===dbitem.row){
+              item.state=dbitem.state;
+              item.color=dbitem.color;
+          }
+          })
+  
       })
 
+   
 
       setBoard(tempBoard)
       setLoading(false)
@@ -76,16 +100,23 @@ function Board() {
 
   useEffect(() => {
 
-    socket.on("newPixel", async (item) => {
-      console.log("from socket", item)
+    socket.on("newPixel", async (dbitem) => {
+      console.log("from socket", dbitem)
 
       setBoard((prevState) => {
 
         const tempBoard = [...prevState];
         // console.log("tmp from socket", tempBoard)
-        tempBoard[parseInt(item.row) - 1].id = item.row
-        tempBoard[parseInt(item.row) - 1].state = item.state
-        tempBoard[parseInt(item.row) - 1].color = item.color
+        // tempBoard[parseInt(item.row) - 1].id = item.row
+        // tempBoard[parseInt(item.row) - 1].state = item.state
+        // tempBoard[parseInt(item.row) - 1].color = item.color
+        tempBoard.forEach((item) => {
+          
+          if(item.id.toString()===dbitem.row){
+              item.state=dbitem.state;
+              item.color=dbitem.color;
+          }
+          })
 
         // console.log("test1", prevState)
         return tempBoard
@@ -100,6 +131,14 @@ function Board() {
   }, [socket]);
 
 
+  // const checkandset=(bd, posi)=>{
+  //   bd.forEach((item) => {
+  //     //   tempBoard[parseInt(item.row) - 1].id = item.row;
+  //     //   tempBoard[parseInt(item.row) - 1].state = item.state;
+  //     //   tempBoard[parseInt(item.row) - 1].color = item.color;
+  //     // })
+
+  // }
 
 
   const onclick = (e) => {
@@ -111,8 +150,9 @@ function Board() {
     //   setCurrentClick(0)
     //   console.log('occupied')
     // }
-
+    // console.log("id",e.target.id)
     setCurrentClick(e.target.id)
+    // console.log(currentClick)
   }
   const onSubmit = () => {
     // console.log('submit')
@@ -120,7 +160,7 @@ function Board() {
     if (currentClick && credit) {
 
       const pixel = {
-        row: parseInt(currentClick),
+        row: currentClick,
         state: true,
         color: color,
         email: user.email
@@ -138,27 +178,60 @@ function Board() {
   //   console.log(e.target.value)
   //   setColor(e.target.value)
   // }
+  // const getIntArray = (li) => {
+  //   var nli = []
+  //   li.split(',').map(function (item) {
+  //     nli.push(parseInt(item, 10))
+  //   })
+
+  //   return nli
+  // }
+
 
   const pathMatchRoute = (num) => {
+    
     // if (!num.state) {
-      if (parseInt(num.id) === parseInt(currentClick)) {
-        return true
-      } else {
-        return false
-      }
+    if (num.id==currentClick) {
+      // console.log(currentClick)
+      return true
+    } else {
+      return false
+    }
     // }
   }
 
-  const bcr = (num) => {
+  
+
+  const getClickindex = (st) => {
     // if (!num.state) {
-      let tb = ""
-      for (let i = 1; i <( sizeofboard)+1; i++) {
-        tb=tb+" auto"
-      }
 
-      return tb
+       for (let j = 0; j < parseInt(sizeofboard*sizeofboard); j++) {
+          if(board[j].id.toString()===st){
+            // console.log(j)
+            return j
+          }
+        }
+  }
 
 
+
+
+  // function isEqual(li1, li2) {
+  //   if (li1[0] === li2[0] && li1[1] === li2[1]) {
+  //     return true
+  //   }
+  //   return false
+  // }
+
+  function getZoom(num){
+   
+    if(num>200){
+      return ['1000px','1050px']
+    }
+    if(num>100){
+      return ['700px','750px']
+    }
+    return ['600px' ,'650px']
   }
 
 
@@ -170,7 +243,8 @@ function Board() {
 
   return (
     <>
-      <div className='full-page'>
+      {/* <div className='full-page' style={{zoom:getZoom(sizeofboard)}}> */}
+      <div className='full-page' >
         <div className='d-flex flex-row-reverse bd-highlight'>
           <input
             type='button'
@@ -187,22 +261,32 @@ function Board() {
 
 
         </div>
-        <div className='bcontainer'>
+        <div className='bcontainer' style={
+          {
+            width:getZoom(sizeofboard)[0],
+            height:  getZoom(sizeofboard)[1]
+        }}> 
 
 
 
           <TransformWrapper
             defaultScale={1}
             // options={transformOptions}
-            defaultPositionX={1}
-            defaultPositionY={1}
+            defaultPositionX={100}
+            defaultPositionY={100}
           >
+
+        
             <TransformComponent>
 
-
-              <div className='grid-container'  style={{
-                      gridTemplateColumns: 'auto '.repeat(sizeofboard),
-                    }} >
+          
+         
+              <div className='grid-container' style={{
+                gridTemplateColumns: 'auto '.repeat(sizeofboard),
+                width:getZoom(sizeofboard)[0],
+                height:  getZoom(sizeofboard)[0]
+                
+              }} >
                 {board && board.map((num) => (
                   <div
                     className={
@@ -213,23 +297,25 @@ function Board() {
                     style={{
                       backgroundColor: num.color,
                     }}
-                    id={num.id}
+                    id={num.id.toString()}
                     onClick={onclick}
-                    key={num.id}
+                    key={num.id.toString()}
                   >
-                    {/* {num.id} */}
+                    {/* {num.id.toString()} */}
                   </div>
                 ))}
               </div>
 
-
+           
             </TransformComponent>
+
+           
           </TransformWrapper>
 
           <div style={{ display: (!act) ? 'none' : '' }} className='cp'>
-          <input className="form-control " type="text" name="name" value={color} onChange={(e)=>setColor(e.target.value)} />
+            <input className="form-control " type="text" name="name" value={color} onChange={(e) => setColor(e.target.value)} />
             <HexColorPicker color={color} onChange={setColor} />
-            
+
 
           </div>
 
@@ -237,7 +323,7 @@ function Board() {
           <div className='row  '>
             <div className='col  d-flex justify-content-center  p-1 border'>
               <label htmlFor='colorpicker'>Color Picker:</label>
-              
+
               <input
                 type='button'
                 id='colorclick'
@@ -256,7 +342,8 @@ function Board() {
                 type='subbit'
                 className='btn btn-primary'
                 onClick={onSubmit}
-                disabled={!credit || currentClick===0 || color==board[currentClick-1].color}
+                disabled={!credit || currentClick === "" || (currentClick && color === board[getClickindex(currentClick)].color)}
+                // || color == board[currentClick - 1].color
               >
                 {' '}
                 confirm
