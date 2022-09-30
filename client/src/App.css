@@ -72,7 +72,7 @@
 .full-page {
   background-color: #f2f4f8;
   min-height: 100vh;
-  zoom:100%
+  /* zoom:100% */
 }
 
 .btn-login {
@@ -157,8 +157,8 @@
   z-index: 10;
   border-radius: 50px;
   position: absolute;
-  top: 70%;
-  left: 20%;
+  bottom: 22%;
+  left: 25%;
   width: 100px;
   height: 100px;
   background-color: #0a6c74;
@@ -184,7 +184,8 @@
 
 .grid-container {
   /* position: absolute; */
-  margin: auto;
+  /* margin: auto; */
+  /* margin-left: 25%; */
   display: grid;
  
   
@@ -253,6 +254,9 @@
   grid-gap: 0px;
   height: 1000px;
   width: 1000px;
+
+  /* height: 600px;
+  width: 600px; */
  
   /* border: 1px solid rgba(251, 251, 251, 0.8); */
   
@@ -264,9 +268,9 @@
   /* width:2px ;
   height:2px ; */
   font-size: 1px;
-  /* width: 1px;
-  height: 1px;
-  padding: 0;
+   /* width: 1px;
+  height: 1px;  */
+ /* padding: 0;
   margin: 0;
   text-align: center; */
 }

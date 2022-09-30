@@ -150,7 +150,7 @@ function Board() {
     //   setCurrentClick(0)
     //   console.log('occupied')
     // }
-    console.log("id",e.target.id)
+    // console.log("id",e.target.id)
     setCurrentClick(e.target.id)
     // console.log(currentClick)
   }
@@ -178,21 +178,21 @@ function Board() {
   //   console.log(e.target.value)
   //   setColor(e.target.value)
   // }
-  const getIntArray = (li) => {
-    var nli = []
-    li.split(',').map(function (item) {
-      nli.push(parseInt(item, 10))
-    })
+  // const getIntArray = (li) => {
+  //   var nli = []
+  //   li.split(',').map(function (item) {
+  //     nli.push(parseInt(item, 10))
+  //   })
 
-    return nli
-  }
+  //   return nli
+  // }
 
 
   const pathMatchRoute = (num) => {
     
     // if (!num.state) {
     if (num.id==currentClick) {
-      console.log(currentClick)
+      // console.log(currentClick)
       return true
     } else {
       return false
@@ -200,31 +200,38 @@ function Board() {
     // }
   }
 
-  const bcr = (num) => {
+  
+
+  const getClickindex = (st) => {
     // if (!num.state) {
-    let tb = ""
-    for (let i = 1; i < (sizeofboard) + 1; i++) {
-      tb = tb + " auto"
-    }
 
-    return tb
-
+       for (let j = 0; j < parseInt(sizeofboard*sizeofboard); j++) {
+          if(board[j].id.toString()===st){
+            // console.log(j)
+            return j
+          }
+        }
   }
 
 
-  function isEqual(li1, li2) {
-    if (li1[0] === li2[0] && li1[1] === li2[1]) {
-      return true
-    }
-    return false
-  }
+
+
+  // function isEqual(li1, li2) {
+  //   if (li1[0] === li2[0] && li1[1] === li2[1]) {
+  //     return true
+  //   }
+  //   return false
+  // }
 
   function getZoom(num){
-    let v=65
+   
     if(num>200){
-      return '80%'
+      return ['1000px','1050px']
     }
-    return '68%' 
+    if(num>100){
+      return ['700px','750px']
+    }
+    return ['600px' ,'650px']
   }
 
 
@@ -236,7 +243,8 @@ function Board() {
 
   return (
     <>
-      <div className='full-page' style={{zoom:getZoom(sizeofboard)}}>
+      {/* <div className='full-page' style={{zoom:getZoom(sizeofboard)}}> */}
+      <div className='full-page' >
         <div className='d-flex flex-row-reverse bd-highlight'>
           <input
             type='button'
@@ -253,21 +261,31 @@ function Board() {
 
 
         </div>
-        <div className='bcontainer'  >
+        <div className='bcontainer' style={
+          {
+            width:getZoom(sizeofboard)[0],
+            height:  getZoom(sizeofboard)[1]
+        }}> 
 
 
 
           <TransformWrapper
             defaultScale={1}
             // options={transformOptions}
-            defaultPositionX={1}
-            defaultPositionY={1}
+            defaultPositionX={100}
+            defaultPositionY={100}
           >
+
+        
             <TransformComponent>
 
-
+          
+         
               <div className='grid-container' style={{
                 gridTemplateColumns: 'auto '.repeat(sizeofboard),
+                width:getZoom(sizeofboard)[0],
+                height:  getZoom(sizeofboard)[0]
+                
               }} >
                 {board && board.map((num) => (
                   <div
@@ -288,8 +306,10 @@ function Board() {
                 ))}
               </div>
 
-
+           
             </TransformComponent>
+
+           
           </TransformWrapper>
 
           <div style={{ display: (!act) ? 'none' : '' }} className='cp'>
@@ -322,7 +342,7 @@ function Board() {
                 type='subbit'
                 className='btn btn-primary'
                 onClick={onSubmit}
-                disabled={!credit || currentClick === "" }
+                disabled={!credit || currentClick === "" || (currentClick && color === board[getClickindex(currentClick)].color)}
                 // || color == board[currentClick - 1].color
               >
                 {' '}
