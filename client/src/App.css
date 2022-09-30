@@ -60,8 +60,7 @@
 
 * {
   font-family: 'Montserrat', sans-serif;
-  
-  
+ 
   margin: 0;
   box-sizing: border-box;
 } 
@@ -73,6 +72,7 @@
 .full-page {
   background-color: #f2f4f8;
   min-height: 100vh;
+  /* zoom:100% */
 }
 
 .btn-login {
@@ -157,8 +157,8 @@
   z-index: 10;
   border-radius: 50px;
   position: absolute;
-  top: 435px;
-  left: 30%;
+  bottom: 22%;
+  left: 25%;
   width: 100px;
   height: 100px;
   background-color: #0a6c74;
@@ -170,17 +170,59 @@
 }
 
 .bcontainer {
+  position: relative;
+ 
+  
   margin: auto;
   /* margin-top: 100px; */
   text-align: center;
-  height: 600px;
-  width: 600px;
+  /* height: 600px;
+  width: 600px; */
+  height: 1050px;
+  width: 1000px;
 }
 
 .grid-container {
+  /* position: absolute; */
+  /* margin: auto; */
+  /* margin-left: 25%; */
   display: grid;
+ 
   
-  grid-template-columns:
+  /* grid-template-columns: */
+    /* auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto */
+
+    /* auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto */
+
+    /*auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    
     auto auto auto auto auto auto auto auto auto auto
     auto auto auto auto auto auto auto auto auto auto
     auto auto auto auto auto auto auto auto auto auto
@@ -191,26 +233,46 @@
     auto auto auto auto auto auto auto auto auto auto
     auto auto auto auto auto auto auto auto auto auto
     auto auto auto auto auto auto auto auto auto auto
+
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto auto auto auto auto auto auto */
+
 
 
 
    ;
   /* background-color: #2196F3; */
-  padding: 1px;
-  height: 600px;
-  width: 600px;
+  /* padding: 1px; */
+  grid-gap: 0px;
+  height: 1000px;
+  width: 1000px;
+
+  /* height: 600px;
+  width: 600px; */
  
-  border: 1px solid rgba(251, 251, 251, 0.8);
+  /* border: 1px solid rgba(251, 251, 251, 0.8); */
   
 }
 .grid-item {
   background-color: rgb(255, 255, 255);
-  border: 0.1px solid rgba(255, 255, 255, 0);
+  border: 1px solid rgba(255, 255, 255, 0);
   /* padding: 20px; */
   /* width:2px ;
   height:2px ; */
-  /* font-size: 2px; */
-  text-align: center;
+  font-size: 1px;
+   /* width: 1px;
+  height: 1px;  */
+ /* padding: 0;
+  margin: 0;
+  text-align: center; */
 }
 
 .block {
@@ -226,5 +288,6 @@
 }
 
 .colorpicker {
+  
   height: 45px;
 }

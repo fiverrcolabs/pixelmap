@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const PixelSchema = new mongoose.Schema({
   row: {
-    type: Number,
+    type: String,
     required: true,
     unique: true
   },

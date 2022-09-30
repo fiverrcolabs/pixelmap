@@ -2,6 +2,7 @@ import http from 'http'
 import express from 'express'
 import { Server } from 'socket.io'
 import mongoose from 'mongoose'
+import Pixel from './models/Pixel.js'
 
 const app = express()
 const server = http.createServer(app)
@@ -39,14 +40,12 @@ app.use(express.json())
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/pixelmap', authenticateUser, pixelmapRouter)
 // app.use('/api/v1/pixelmap', pixelmapRouter)
-app.use('/api/v1/user',authenticateUser, userRouter)
+app.use('/api/v1/user', authenticateUser, userRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddeware)
 
 const PORT = process.env.PORT || 5500
-
-
 
 io.of('/api/v1/socket').on('connection', (socket) => {
   console.log('socket.io: User connected: ', socket.id)
@@ -67,10 +66,10 @@ const start = async () => {
       console.log('Setting change streams')
       const pixelmapChangeStream = connection.collection('pixels').watch()
 
-      pixelmapChangeStream.on('change', (change) => {
+      pixelmapChangeStream.on('change', async (change) => {
         switch (change.operationType) {
           case 'insert':
-            const pixel = {
+            var pixel = {
               row: change.fullDocument.row,
               color: change.fullDocument.color,
               state: change.fullDocument.state,
@@ -78,12 +77,19 @@ const start = async () => {
             io.of('/api/v1/socket').emit('newPixel', pixel)
             break
 
+          case 'update':
+            console.log(change.documentKey._id.toString())
+            const pixelexist = await Pixel.findOne({
+              _id: change.documentKey._id.toString(),
+            })
+            console.log(pixelexist)
+            io.of('/api/v1/socket').emit('newPixel', pixelexist)
+            break
+
           default:
             break
         }
       })
-
-    
     })
     server.listen(PORT, () => {
       console.log(`Server is listening on port ${PORT}...`)
@@ -101,11 +107,11 @@ import User from './models/User.js'
 CronJob.schedule('0 0 */23 * * *', async () => {
   const users = await User.find()
 
-    for (const user of users) {
-        user.point+=1
-        await user.save()
-    }
+  for (const user of users) {
+    user.point += 1
+    await user.save()
+  }
 
-	const d = new Date();
-	console.log('Log: ', d);
+  const d = new Date()
+  console.log('Log: ', d)
 })
